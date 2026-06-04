@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CommitCraft — AI Commit Messages</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <div class="noise"></div>
+
+  <header>
+    <div class="logo">
+      <span class="logo-icon">⬡</span>
+      <span class="logo-text">CommitCraft</span>
+    </div>
+    <div class="badge">AI-Powered</div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <h1>
+        <span class="line1">Stop writing</span>
+        <span class="line2">bad commits.</span>
+      </h1>
+      <p class="tagline">Paste your <code>git diff</code> — get a perfect, conventional commit message instantly.</p>
+    </section>
+
+    <div class="workspace">
+      <!-- Input Panel -->
+      <div class="panel panel-input">
+        <div class="panel-header">
+          <span class="panel-label">GIT DIFF INPUT</span>
+          <button class="btn-load-example" id="loadExample">Load example diff</button>
+        </div>
+        <textarea
+          id="diffInput"
+          class="diff-textarea"
+          placeholder="Paste your git diff here...&#10;&#10;$ git diff HEAD&#10;or&#10;$ git diff --staged"
+          spellcheck="false"
+        ></textarea>
+        <div class="panel-footer">
+          <span class="char-count" id="charCount">0 lines</span>
+          <button class="btn-generate" id="generateBtn">
+            <span class="btn-text">Generate Commit</span>
+            <span class="btn-arrow">→</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Output Panel -->
+      <div class="panel panel-output">
+        <div class="panel-header">
+          <span class="panel-label">GENERATED MESSAGE</span>
+          <button class="btn-copy" id="copyBtn" disabled>Copy</button>
+        </div>
+        <div class="output-area" id="outputArea">
+          <div class="placeholder-state">
+            <div class="placeholder-icon">✦</div>
+            <p>Your commit message will appear here</p>
+          </div>
+        </div>
+
+        <!-- Breakdown -->
+        <div class="breakdown" id="breakdown" style="display:none">
+          <div class="breakdown-row">
+            <span class="breakdown-key">Type</span>
+            <span class="breakdown-val" id="bType">—</span>
+          </div>
+          <div class="breakdown-row">
+            <span class="breakdown-key">Scope</span>
+            <span class="breakdown-val" id="bScope">—</span>
+          </div>
+          <div class="breakdown-row">
+            <span class="breakdown-key">Breaking</span>
+            <span class="breakdown-val" id="bBreaking">No</span>
+          </div>
+        </div>
+
+        <!-- Alternatives -->
+        <div class="alternatives" id="alternatives" style="display:none">
+          <div class="alt-header">ALTERNATIVES</div>
+          <div class="alt-list" id="altList"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Stats bar -->
+    <div class="stats-bar">
+      <div class="stat">
+        <span class="stat-num" id="statGenerated">0</span>
+        <span class="stat-label">generated this session</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat">
+        <span class="stat-num">100%</span>
+        <span class="stat-label">conventional commits</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat">
+        <span class="stat-num">0ms</span>
+        <span class="stat-label">no telemetry</span>
+      </div>
+    </div>
+  </main>
+
+  <!-- Loading overlay -->
+  <div class="loading-overlay" id="loadingOverlay" style="display:none">
+    <div class="loading-inner">
+      <div class="loading-spinner"></div>
+      <p class="loading-text" id="loadingText">Analyzing diff...</p>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div class="toast" id="toast"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
